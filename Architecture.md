@@ -8,19 +8,19 @@
 
 
 ### Диаграмма развертывания
-![Deployment diagram](./src/images/deployment-1.jfif)
+![Deployment diagram](./src/images/deployment-1.PNG)
 
 ### Диаграмма последовательности #1
-![Sequance diagram](./src/images/sequance-1.jfif)
+![Sequance diagram](./src/images/sequance-1.PNG)
 
 ### Диаграмма последовательности #2
-![Sequance diagram](./src/images/sequance-2.jfif)
+![Sequance diagram](./src/images/sequance-2.PNG)
 
 ### Диаграмма классов #1
-![Class diagram](./src/images/class-1.jfif)
+![Class diagram](./src/images/class-1.PNG)
 
 ### Диаграмма классов #2
-![Class diagram](./src/images/class-2.jfif)
+![Class diagram](./src/images/class-2.PNG)
 
 ### Диаграмма состояний
-![Class diagram](./src/images/state-1.jfif)
+![Class diagram](./src/images/state-1.PNG)
