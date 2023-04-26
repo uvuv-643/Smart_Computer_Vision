@@ -20,7 +20,7 @@
 <script>
 
     var video = document.querySelector('video');
-    var assetURL = 'https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4';
+    var assetURL = 'https://donntukhomichukpi20b.space/php/test1.mp4';
     // Need to be specific for Blink regarding codecs
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
@@ -33,10 +33,6 @@
             sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
             sourceOpen(assetURL)
         });
-        setTimeout(() => {
-            sourceBuffer.abort()
-            sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
-        }, 5000)
     } else {
         console.error('Unsupported MIME type or codec: ', mimeCodec);
     }
