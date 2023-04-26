@@ -28,22 +28,15 @@
 
         console.log(myMediaSource.readyState)
 
-        const audioSourceBuffer = myMediaSource
-            .addSourceBuffer('audio/mp4; codecs="mp4a.40.2"');
         const videoSourceBuffer = myMediaSource
             .addSourceBuffer('video/mp4; codecs="avc1.64001e"');
-
-        fetch("./test1.mp4").then(function(response) {
-            return response.arrayBuffer();
-        }).then(function(audioData) {
-            audioSourceBuffer.appendBuffer(audioData);
-        });
 
         fetch("./test1.mp4").then(function(response) {
             return response.arrayBuffer();
         }).then(function(videoData) {
             videoSourceBuffer.appendBuffer(videoData);
         });
+
     }, 1000)
 
 
