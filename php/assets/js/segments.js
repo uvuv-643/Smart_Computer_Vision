@@ -44,13 +44,9 @@
     let clipIndex = 0;
     sourceBuffer.onupdateend = () => {
         if (clipIndex < clipsToAppend.length - 1) {
-            // We have another segment to add
-            // BUT, first we need to offset the time by the duration of
-            // the previously appended clip. Otherwise, it will overwrite it
-            sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
-            // Now we can move on to next clip and append it
-            clipIndex++;
             setTimeout(() => {
+                sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
+                clipIndex++;
                 sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
             }, 5000)
         } else {
