@@ -41,7 +41,7 @@
         var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetchAB(asset, function (buf) {
             sourceBuffer.addEventListener('updateend', function (_) {
-                mediaSource.endOfStream();
+                // mediaSource.endOfStream();
                 video.play();
                 //console.log(mediaSource.readyState); // ended
             });
