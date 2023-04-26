@@ -28,7 +28,7 @@
 
         console.log(myMediaSource.readyState)
 
-        const videoSourceBuffer = myMediaSource.f('video/mp4; codecs="avc1.64001e"');
+        const videoSourceBuffer = myMediaSource.addSourceBuffer('video/mp4; codecs="avc1.64001e"');
 
         fetch("./test1.mp4").then(function(response) {
             console.log('buff', response)
@@ -36,6 +36,8 @@
         }).then(function(videoData) {
             console.log('data', videoData)
             videoSourceBuffer.appendBuffer(videoData);
+        }).then(function () {
+            console.log(myMediaSource.duration)
         });
 
     }, 1000)
