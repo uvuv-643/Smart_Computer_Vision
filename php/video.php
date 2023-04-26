@@ -8,12 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-<video tabindex="-1"
+<video
        class="video-stream html5-main-video"
        id="my-video"
        style="width: 617px; height: 347px; left: 0; top: 0;"
 >
-    <source src="test2.mp4" type="video/mp4" />
+
 </video>
 
 <script>
@@ -28,8 +28,7 @@
 
         console.log(myMediaSource.readyState)
 
-        const videoSourceBuffer = myMediaSource
-            .addSourceBuffer('video/mp4; codecs="avc1.64001e"');
+        const videoSourceBuffer = myMediaSource.f('video/mp4; codecs="avc1.64001e"');
 
         fetch("./test1.mp4").then(function(response) {
             console.log('buff', response)
