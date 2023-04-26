@@ -30,7 +30,8 @@
         var mediaSource = new MediaSource;
         //console.log(mediaSource.readyState); // closed
         video.src = URL.createObjectURL(mediaSource);
-        mediaSource.addEventListener('sourceopen', () => sourceOpen(assetURL));
+        mediaSource.addEventListener('sourceopen', function() {sourceOpen(assetURL)});
+        this.mediaSource = mediaSource
         setTimeout(() => {
             sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
         }, 5000)
@@ -39,7 +40,6 @@
     }
 
     function sourceOpen (asset) {
-        //console.log(this.readyState); // open
         var mediaSource = this;
         var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetchAB(asset, function (buf) {
