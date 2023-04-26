@@ -21,6 +21,7 @@
     const videoTag = document.getElementById("my-video");
     const myMediaSource = new MediaSource();
     const url = URL.createObjectURL(myMediaSource);
+
     videoTag.src = url;
 
     setTimeout(function () {
@@ -33,6 +34,7 @@
         fetch("./test1.mp4").then(function(response) {
             return response.arrayBuffer();
         }).then(function(videoData) {
+            console.log(videoData)
             videoSourceBuffer.appendBuffer(videoData);
         });
 
