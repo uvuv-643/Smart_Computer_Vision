@@ -30,15 +30,12 @@
         fetch(assetURL)
             .then(response => response.arrayBuffer())
             .then((buf) => {
-            console.log(sourceBuffer)
-            sourceBuffer.appendBuffer(buf);
-            console.log(sourceBuffer)
-            sourceBuffer.addEventListener("updateend", () => {
-                mediaSource.endOfStream();
-                video.play();
-                console.log(mediaSource.readyState); // ended
-            });
-
+                sourceBuffer.addEventListener("updateend", () => {
+                    mediaSource.endOfStream();
+                    video.play();
+                    console.log(mediaSource.readyState); // ended
+                });
+                sourceBuffer.appendBuffer(buf);
         });
     })
 
