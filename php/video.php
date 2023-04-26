@@ -31,12 +31,11 @@
         const videoSourceBuffer = myMediaSource.addSourceBuffer('video/mp4; codecs="avc1.64001e"');
 
         fetch("./test1.mp4").then(function(response) {
-            console.log('buff', response)
             return response.arrayBuffer();
         }).then(function(videoData) {
-            console.log('data', videoData)
             videoSourceBuffer.appendBuffer(videoData);
         }).then(function () {
+            console.log(videoSourceBuffer)
             console.log(myMediaSource)
         });
 
