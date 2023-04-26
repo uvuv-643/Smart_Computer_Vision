@@ -26,7 +26,12 @@
 
     video.src = url;
 
+    console.log(mediaSource.readyState);
+
     mediaSource.addEventListener("sourceopen", function () {
+
+        console.log(mediaSource.readyState);
+
         const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetch(assetURL, (buf) => {
             console.log(sourceBuffer)
