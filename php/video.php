@@ -18,30 +18,25 @@
 
 <script>
 
-    const videoTag = document.getElementById("my-video");
-    const myMediaSource = new MediaSource();
-    const url = URL.createObjectURL(myMediaSource);
+    const mimeCodec = 'video/mp4; codecs="avc1.42E01E"';
+    const assetURL = './test1.mp4'
+    const video = document.getElementById("my-video");
+    const mediaSource = new MediaSource();
+    const url = URL.createObjectURL(mediaSource);
 
-    videoTag.src = url;
+    video.src = url;
 
-    setTimeout(function () {
-
-        const mimeCodec = 'video/mp4; codecs="avc1.42E01E"';
-        const videoSourceBuffer = myMediaSource.addSourceBuffer(mimeCodec);
-        console.log(videoSourceBuffer, myMediaSource)
-
-        fetch("./test1.mp4").then(function(response) {
-            return response.arrayBuffer();
-        }).then(function(videoData) {
-            videoSourceBuffer.appendBuffer(videoData);
-        }).then(function () {
-            console.log(videoSourceBuffer)
-            console.log(myMediaSource)
+    mediaSource.addEventListener("sourceopen", function () {
+        const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+        fetch(assetURL, (buf) => {
+            sourceBuffer.addEventListener("updateend", () => {
+                mediaSource.endOfStream();
+                video.play();
+                console.log(mediaSource.readyState); // ended
+            });
+            sourceBuffer.appendBuffer(buf);
         });
-
-    }, 1000)
-
-
+    })
 
 </script>
 </body>
