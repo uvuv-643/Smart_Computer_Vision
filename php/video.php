@@ -37,7 +37,7 @@
             console.log('data', videoData)
             videoSourceBuffer.appendBuffer(videoData);
         }).then(function () {
-            console.log(myMediaSource.duration)
+            console.log(myMediaSource)
         });
 
     }, 1000)
