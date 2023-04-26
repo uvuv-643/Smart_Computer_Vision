@@ -25,13 +25,11 @@
     // Need to be specific for Blink regarding codecs
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+    var mediaSource = new MediaSource;
 
     if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
-        var mediaSource = new MediaSource;
-        //console.log(mediaSource.readyState); // closed
         video.src = URL.createObjectURL(mediaSource);
         mediaSource.addEventListener('sourceopen', function() {sourceOpen(assetURL)});
-        this.mediaSource = mediaSource
         setTimeout(() => {
             sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
         }, 5000)
@@ -40,7 +38,6 @@
     }
 
     function sourceOpen (asset) {
-        var mediaSource = this;
         var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetchAB(asset, function (buf) {
             sourceBuffer.addEventListener('updateend', function (_) {
