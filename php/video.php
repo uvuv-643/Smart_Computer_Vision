@@ -17,8 +17,8 @@
 
 </video>
 
-<script type="module" src="assets/js/utils.js"></script>
-<script type="module" src="assets/js/segments.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/segments.js"></script>
 
 </body>
 </html>

@@ -1,8 +1,3 @@
-/**
- * Get the duration of video, via its raw blob
- * @param {Blob} blob
- * @returns {Promise<number>}
- */
 const getDuration = (blob) => {
     return new Promise((res) => {
         const tempVidElem = document.createElement('video');
