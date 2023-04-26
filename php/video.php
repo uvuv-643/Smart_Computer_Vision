@@ -30,16 +30,19 @@
         var mediaSource = new MediaSource;
         //console.log(mediaSource.readyState); // closed
         video.src = URL.createObjectURL(mediaSource);
-        mediaSource.addEventListener('sourceopen', sourceOpen);
+        mediaSource.addEventListener('sourceopen', () => sourceOpen(assetURL));
+        setTimeout(() => {
+            sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
+        }, 5000)
     } else {
         console.error('Unsupported MIME type or codec: ', mimeCodec);
     }
 
-    function sourceOpen (_) {
+    function sourceOpen (asset) {
         //console.log(this.readyState); // open
         var mediaSource = this;
         var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
-        fetchAB(assetURL, function (buf) {
+        fetchAB(asset, function (buf) {
             sourceBuffer.addEventListener('updateend', function (_) {
                 mediaSource.endOfStream();
                 video.play();
