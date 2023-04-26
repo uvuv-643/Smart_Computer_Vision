@@ -27,9 +27,8 @@
     setTimeout(function () {
 
         const mimeCodec = 'video/mp4; codecs="avc1.42E01E"';
-        console.log(MediaSource.isTypeSupported(mimeCodec))
-
-        const videoSourceBuffer = myMediaSource.addSourceBuffer('video/mp4; codecs="avc1.64001e"');
+        const videoSourceBuffer = myMediaSource.addSourceBuffer(mimeCodec);
+        console.log(videoSourceBuffer, myMediaSource)
 
         fetch("./test1.mp4").then(function(response) {
             return response.arrayBuffer();
