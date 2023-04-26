@@ -26,6 +26,7 @@
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
     var mediaSource = new MediaSource;
+    var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
 
     if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
         video.src = URL.createObjectURL(mediaSource);
@@ -38,7 +39,6 @@
     }
 
     function sourceOpen (asset) {
-        var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetchAB(asset, function (buf) {
             sourceBuffer.addEventListener('updateend', function (_) {
                 // mediaSource.endOfStream();
