@@ -13,7 +13,7 @@
 <script>
 
     const assetURL = 'test1.mp4';
-    const mimeCodec = 'video/mp4; codecs="avc1.42E01E"';
+    const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
     let video = document.querySelector('video');
     let mediaSource = new MediaSource;
 
