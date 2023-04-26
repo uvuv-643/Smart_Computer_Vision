@@ -22,6 +22,8 @@
     var video = document.querySelector('video');
     var assetURL = 'https://donntukhomichukpi20b.space/php/test1.mp4';
     assetURL = 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'
+    assetURL = 'https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4';
+
     // Need to be specific for Blink regarding codecs
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
