@@ -50,7 +50,9 @@
             sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
             // Now we can move on to next clip and append it
             clipIndex++;
-            sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
+            setTimeout(() => {
+                sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
+            }, 5000)
         } else {
             // Done!
             mediaSource.endOfStream();
