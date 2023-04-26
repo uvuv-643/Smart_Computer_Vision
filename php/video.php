@@ -29,12 +29,15 @@
     mediaSource.addEventListener("sourceopen", function () {
         const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
         fetch(assetURL, (buf) => {
+            console.log(sourceBuffer)
+            sourceBuffer.appendBuffer(buf);
+            console.log(sourceBuffer)
             sourceBuffer.addEventListener("updateend", () => {
                 mediaSource.endOfStream();
                 video.play();
                 console.log(mediaSource.readyState); // ended
             });
-            sourceBuffer.appendBuffer(buf);
+
         });
     })
 
