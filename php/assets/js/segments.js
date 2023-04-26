@@ -1,4 +1,3 @@
-import './utils'
 
 (async () => {
     const videoElement = document.querySelector('video');
