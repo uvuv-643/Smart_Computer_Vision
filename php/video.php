@@ -10,9 +10,8 @@
 <body>
 <video tabindex="-1"
        class="video-stream html5-main-video"
-       controlslist="nodownload"
        id="my-video"
-       style="width: 617px; height: 347px; left: 0px; top: 0px;"
+       style="width: 617px; height: 347px; left: 0; top: 0;"
 >
     <source src="test2.mp4" type="video/mp4" />
 </video>
