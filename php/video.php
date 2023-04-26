@@ -30,9 +30,10 @@
         fetch(assetURL)
             .then(response => response.arrayBuffer())
             .then((buf) => {
+                mediaSource.endOfStream();
                 sourceBuffer.addEventListener("updateend", () => {
                     if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
-                        mediaSource.endOfStream();
+
                     }
                     video.play();
                     console.log(mediaSource.readyState); // ended
