@@ -20,13 +20,13 @@
 <script>
 
     var video = document.querySelector('video');
-
     var assetURL = 'https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4';
     // Need to be specific for Blink regarding codecs
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
     var mediaSource = new MediaSource;
     var sourceBuffer;
+
     if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
         video.src = URL.createObjectURL(mediaSource);
         mediaSource.addEventListener('sourceopen', function() {
@@ -42,14 +42,9 @@
 
     function sourceOpen (asset) {
         fetchAB(asset, function (buf) {
-            sourceBuffer.addEventListener('updateend', function (_) {
-                // mediaSource.endOfStream();
-                video.play();
-                //console.log(mediaSource.readyState); // ended
-            });
             sourceBuffer.appendBuffer(buf);
         });
-    };
+    }
 
     function fetchAB (url, cb) {
         console.log(url);
@@ -60,7 +55,7 @@
             cb(xhr.response);
         };
         xhr.send();
-    };
+    }
 
 </script>
 </body>
