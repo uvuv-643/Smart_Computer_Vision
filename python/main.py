@@ -1,32 +1,33 @@
+import base64
+import json
+
 import cv2
 import subprocess
 import requests
-import ffmpeg
+import zmq
+import numpy as np
 
-# Set up video capture from webcam
-cap = cv2.VideoCapture(0)
+server = 'http://5.101.51.12/php/'
+image = open('image.jpeg', 'rb')
 
-# Set up video encoder using FFmpeg
-cmd = ['ffmpeg',
-       '-f', 'rawvideo',
-       '-pix_fmt', 'bgr24',
-       '-s', '640x480',
-       '-i', '-',
-       '-c:v', 'libx264',
-       '-preset', 'ultrafast',
-       '-f', 'mp4',
-       '-']
-encoder = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+s = requests.Session()
 
-# Loop to capture and encode video frames
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
-    encoder.stdin.write(frame.tobytes())
-    response = requests.post("localhost:80/scv", data=encoder.stdout.readline())
+# open webcam
+# cap = cv2.VideoCapture(0)
 
-# Release resources
-encoder.stdin.close()
-encoder.wait()
-cap.release()
+# read image
+# array = np.asarray(bytearray(image.read()), dtype=np.uint8)
+# image = cv2.imdecode(array, cv2.IMREAD_COLOR)
+# cv2.imshow('image', image)
+
+response = s.post(server, files={'file': image})
+print(response.content)
+
+# # Loop to capture and encode video frames
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
+#     print(frame.shape)
+#
+# cap.release()
