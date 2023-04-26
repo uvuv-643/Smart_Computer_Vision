@@ -11,6 +11,7 @@
 <video
        class="video-stream html5-main-video"
        id="my-video"
+       controls
        style="width: 617px; height: 347px; left: 0; top: 0;"
 >
 
