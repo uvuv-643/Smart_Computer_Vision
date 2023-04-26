@@ -8,32 +8,46 @@
     <title>Document</title>
 </head>
 <body>
-<video
-       class="video-stream html5-main-video"
-       id="my-video"
-       style="width: 617px; height: 347px; left: 0; top: 0;"
->
-
-</video>
+<video controls></video>
 
 <script>
 
+    const assetURL = 'test1.mp4';
     const mimeCodec = 'video/mp4; codecs="avc1.42E01E"';
-    const assetURL = './test1.mp4'
-    const video = document.getElementById("my-video");
-    const mediaSource = new MediaSource();
-    const url = URL.createObjectURL(mediaSource);
-    video.src = url;
+    let video = document.querySelector('video');
+    let mediaSource = new MediaSource;
 
-    mediaSource.addEventListener("sourceopen", function () {
-        const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
-        fetch(assetURL)
-            .then(response => response.arrayBuffer())
-            .then((buf) => {
-                sourceBuffer.appendBuffer(buf);
+    if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
+        video.src = URL.createObjectURL(mediaSource);
+        mediaSource.addEventListener('sourceopen', sourceOpen);
+    } else {
+        console.error('Unsupported MIME type or codec: ', mimeCodec);
+    }
+
+    function sourceOpen (_) {
+        let mediaSource = this;
+        let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+        fetchAB(assetURL, function (buf) {
+            sourceBuffer.addEventListener('updateend', function (_) {
+                mediaSource.endOfStream();
+                video.play();
             });
-    })
+            sourceBuffer.appendBuffer(buf);
+        });
+    }
+
+    function fetchAB (url, cb) {
+        console.log(url);
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', url);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function () {
+            cb(xhr.response);
+        };
+        xhr.send();
+    }
 
 </script>
+
 </body>
 </html>
