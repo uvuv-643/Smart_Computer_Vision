@@ -26,11 +26,13 @@
     // ./mp4info frag_bunny.mp4 | grep Codec
     var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
     var mediaSource = new MediaSource;
-    var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
-
+    var sourceBuffer;
     if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
         video.src = URL.createObjectURL(mediaSource);
-        mediaSource.addEventListener('sourceopen', function() {sourceOpen(assetURL)});
+        mediaSource.addEventListener('sourceopen', function() {
+            sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+            sourceOpen(assetURL)
+        });
         setTimeout(() => {
             sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
         }, 5000)
