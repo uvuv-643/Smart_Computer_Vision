@@ -34,7 +34,7 @@
             sourceOpen(assetURL)
         });
         setTimeout(() => {
-            sourceBuffer.remove(-999999, 999999)
+            sourceBuffer.remove(0, 60.1397)
             sourceOpen('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')
         }, 5000)
     } else {
