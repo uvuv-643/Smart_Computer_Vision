@@ -31,7 +31,9 @@
             .then(response => response.arrayBuffer())
             .then((buf) => {
                 sourceBuffer.addEventListener("updateend", () => {
-                    mediaSource.endOfStream();
+                    if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+                        mediaSource.endOfStream();
+                    }
                     video.play();
                     console.log(mediaSource.readyState); // ended
                 });
