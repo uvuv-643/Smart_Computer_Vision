@@ -23,17 +23,13 @@
     const video = document.getElementById("my-video");
     const mediaSource = new MediaSource();
     const url = URL.createObjectURL(mediaSource);
-
     video.src = url;
 
-    console.log(mediaSource.readyState);
-
     mediaSource.addEventListener("sourceopen", function () {
-
-        console.log(mediaSource.readyState);
-
         const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
-        fetch(assetURL, (buf) => {
+        fetch(assetURL)
+            .then(response => response.arrayBuffer())
+            .then((buf) => {
             console.log(sourceBuffer)
             sourceBuffer.appendBuffer(buf);
             console.log(sourceBuffer)
