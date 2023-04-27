@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <h2 class="text-xl">Вход</h2>
+    <h2 class="login__title">Вход</h2>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex items-center justify-center mt-4">
-            <button class="login__button ml-3">
+            <button class="login__button">
                 {{ __('Войти') }}
             </button>
         </div>
