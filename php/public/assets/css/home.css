@@ -9,7 +9,7 @@
     height: 500px;
 }
 .home__stats {
-    margin-top: 15px;
+    margin-top: 60px;
 }
 .home__stats__count {
     font-size: 20px;
@@ -17,6 +17,5 @@
 .home__video__title, .home__stats__title {
     font-size: 32px;
     margin-bottom: 5px;
-    margin-top: 30px;
     font-weight: 500;
 }
