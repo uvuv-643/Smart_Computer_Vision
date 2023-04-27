@@ -12,7 +12,7 @@
                     <div class="home__title">Аудитория 358</div>
                     <div class="home__wrapper">
                         <div class="home__video">
-                            <div class="home__video__title">Онлайн-трансляция</div>
+{{--                        <div class="home__video__title">Онлайн-трансляция</div>--}}
                             <video controls></video>
                         </div>
                         <div class="home__stats">
