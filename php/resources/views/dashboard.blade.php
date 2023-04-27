@@ -5,13 +5,28 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="home py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <div class="home__title">Аудитория 358 - статистика</div>
+                    <div class="home__wrapper">
+                        <div class="home__video">
+                            <video controls></video>
+                        </div>
+                        <div class="home__stats">
+                            <div class="home__stats__count">
+                                На данный момент в аудитории: {{ mt_rand(1, 15) }} человек
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script src="{{ asset('assets/js/utils.js') }}"></script>
+        <script src="{{ asset('assets/js/segments.js') }}"></script>
+    @endpush
 </x-app-layout>

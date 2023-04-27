@@ -1,0 +1,15 @@
+.home__title {
+    font-size: 32px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.home video {
+    width: 100%;
+    height: 500px;
+}
+.home__stats {
+    margin-top: 15px;
+}
+.home__stats__count {
+    font-size: 20px;
+}
