@@ -17,8 +17,26 @@
                         </div>
                         <div class="home__stats">
                             <div class="home__stats__title">Статистика в режиме реального времени</div>
+
+                            @php
+                                $count = mt_rand(1, 50)
+                            @endphp
+
                             <div class="home__stats__count">
-                                На данный момент в аудитории: {{ mt_rand(1, 15) }} человек
+                                На данный момент в аудитории:
+
+                                @if ($count < 5)
+                                    <span class="text-green-700">{{ $count }}</span>
+                                @elseif ($count < 15)
+                                    <span class="text-orange-600">{{ $count }}</span>
+                                @elseif($count < 30)
+                                    <span class="text-orange-700">{{ $count }}</span>
+                                @else
+                                    <span class="text-red-500">{{ $count }}</span>
+                                @endif
+
+                                @if ($count >= 10 && $count <= 20 || $count % 10 <= 1 || $count % 10 >= 5) человек @else человека @endif
+
                             </div>
                         </div>
                     </div>
