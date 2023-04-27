@@ -1,6 +1,7 @@
 .home__title {
-    font-size: 32px;
-    margin-bottom: 15px;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 30px;
     margin-top: 15px;
 }
 .home video {
@@ -12,4 +13,8 @@
 }
 .home__stats__count {
     font-size: 20px;
+}
+.home__video__title, .home__stats__title {
+    font-size: 32px;
+    margin-bottom: 15px;
 }
