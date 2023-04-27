@@ -44,11 +44,9 @@
     let clipIndex = 0;
     sourceBuffer.onupdateend = () => {
         if (clipIndex < clipsToAppend.length - 1) {
-            setTimeout(() => {
-                sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
-                clipIndex++;
-                sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
-            }, 5000)
+            sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
+            clipIndex++;
+            sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
         } else {
             mediaSource.endOfStream();
             videoElement.play();
