@@ -32,7 +32,7 @@
             @endif
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                Here is the test!
+                Для того, чтобы продолжить пользоваться приложением, авторизируйтесь, пожалуйста.
             </div>
         </div>
     </body>
