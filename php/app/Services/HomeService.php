@@ -14,6 +14,7 @@ class HomeService
 
     private function getGraphicData(string $timeInterval): Collection
     {
+        dd($timeInterval);
         if (preg_match('/^[a-z]/', $timeInterval, $matches)) {
             $timeType = $matches[0];
         }
