@@ -19,6 +19,14 @@
     margin-bottom: 5px;
     font-weight: 500;
 }
+.home__stats__intervals {
+    display: flex;
+    justify-content: flex-end;
+}
+.home__stats__intervals a {
+    margin-left: 15px;
+    color: #007bff;
+}
 
 .text-green-700 {
     color: green;

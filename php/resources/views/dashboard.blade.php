@@ -39,6 +39,17 @@
 
                             </div>
 
+                            <div class="home__stats__intervals">
+                                <a href="#" data-time="7d">3d</a>
+                                <a href="#" data-time="1d">1d</a>
+                                <a href="#" data-time="12h">12h</a>
+                                <a href="#" data-time="4h">4h</a>
+                                <a href="#" data-time="2h">2h</a>
+                                <a href="#" data-time="1h">1h</a>
+                                <a href="#" data-time="30m">30m</a>
+                                <a href="#" data-time="10m">10m</a>
+                            </div>
+
                             <div class="home__stats__history">
                                 <canvas id="graphic"></canvas>
                             </div>
