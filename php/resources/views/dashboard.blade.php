@@ -108,7 +108,15 @@
 
             function getGraphic(time) {
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch('{{ route('home.graphic.data') }}?time=' + time + "&token=" + csrfToken)
+                fetch('{{ route('home.graphic.data') }}?time=' + time,
+                    {
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Authorization': 'Bearer ' + Cookies.get('laravel_session'),
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
                     .then(response => response.json())
                     .then(response => {
                         updateGraphic(response)
