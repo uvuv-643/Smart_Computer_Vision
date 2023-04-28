@@ -38,6 +38,11 @@
                                 @if ($count >= 10 && $count <= 20 || $count % 10 <= 1 || $count % 10 >= 5) человек @else человека @endif
 
                             </div>
+
+                            <div class="home__stats__history">
+                                <canvas id="graphic"></canvas>
+                            </div>
+
                         </div>
                     </div>
                 </div>
