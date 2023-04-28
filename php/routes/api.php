@@ -20,3 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('graphic-data', [HomeController::class, 'graphic'])->name('home.graphic.data');
+
+// define the addToken middleware
+Route::middleware('addToken')->get('/', function () {
+    return response()->json([
+      'message' => 'Hello World!'
+    ]);
+});
