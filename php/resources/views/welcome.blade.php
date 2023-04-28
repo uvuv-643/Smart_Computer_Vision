@@ -38,8 +38,42 @@
                 @auth
                     <div>Вы можете продолжать пользоваться приложением.</div>
                     <div><a href="{{ route('dashboard') }}">В панель управления</a></div>
+
+                    <div id="graphic"></div>
+
                 @endauth
             </div>
         </div>
+
+        <script>
+            (async function() {
+                const data = [
+                    { year: 2010, count: 10 },
+                    { year: 2011, count: 20 },
+                    { year: 2012, count: 15 },
+                    { year: 2013, count: 25 },
+                    { year: 2014, count: 22 },
+                    { year: 2015, count: 30 },
+                    { year: 2016, count: 28 },
+                ];
+
+                new Chart(
+                    document.getElementById('graphic'),
+                    {
+                        type: 'bar',
+                        data: {
+                            labels: data.map(row => row.year),
+                            datasets: [
+                                {
+                                    label: 'Count',
+                                    data: data.map(row => row.count)
+                                }
+                            ]
+                        }
+                    }
+                );
+            })();
+        </script>
+
     </body>
 </html>
