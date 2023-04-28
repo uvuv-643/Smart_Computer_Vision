@@ -68,7 +68,6 @@
                             labels: data.map(row => row.year),
                             datasets: [
                                 {
-                                    label: 'Count',
                                     data: data.map(row => row.count)
                                 }
                             ]
