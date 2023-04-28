@@ -7,9 +7,11 @@ use App\Models\User;
 use App\Services\HomeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -50,10 +52,10 @@ class HomeController extends Controller
         return view('token');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): RedirectResponse
     {
         $token = $request->user()->createToken($request->token_name);
-        return response()->json(['token' => $token->plainTextToken]);
+        return redirect()->route('home.token.create')->with(['token' => $token->plainTextToken]);
     }
 
 }

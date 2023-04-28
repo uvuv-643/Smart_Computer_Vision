@@ -11,10 +11,17 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('home.token.store') }}" method="post">
 
+                        <div class="text-green-700">
+                            Ваш токен:
+                            {{ session('token') }}
+                        </div>
+
                         @csrf
                         <div class="mt-4 mb-4">
-                            <x-input-label for="token_name" :value="__('Название токена')" />
-                            <x-text-input id="token_name" class="block mt-1 w-full" placeholder="Введите название токена" type="text" name="token_name" :value="old('token_name')" required autofocus />
+                            <x-input-label for="token_name" :value="__('Название токена')"/>
+                            <x-text-input id="token_name" class="block mt-1 w-full"
+                                          placeholder="Введите название токена" type="text" name="token_name"
+                                          :value="old('token_name')" required autofocus/>
                         </div>
 
                         <x-primary-button>
@@ -31,7 +38,7 @@
         <script src="{{ asset('assets/js/utils.js') }}"></script>
         <script src="{{ asset('assets/js/segments.js') }}"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script>
