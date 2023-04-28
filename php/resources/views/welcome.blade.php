@@ -39,7 +39,7 @@
                     <div>Вы можете продолжать пользоваться приложением.</div>
                     <div><a href="{{ route('dashboard') }}">В панель управления</a></div>
 
-                    <div id="graphic"></div>
+                    <canvas id="graphic"></canvas>
 
                 @endauth
             </div>
