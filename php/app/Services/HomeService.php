@@ -14,12 +14,10 @@ class HomeService
 
     private function getGraphicData(string $timeInterval): Collection
     {
-        dd($timeInterval);
-        if (preg_match('/^[a-z]/', $timeInterval, $matches)) {
+        if (preg_match('/[a-z]/', $timeInterval, $matches)) {
             $timeType = $matches[0];
         }
         $amountOfTime = intval($timeInterval);
-        dd([$timeType, $amountOfTime, $timeInterval]);
         if (!empty($timeType) && $amountOfTime > 0) {
             switch ($timeType) {
                 case 'h': {
