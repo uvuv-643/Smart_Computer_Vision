@@ -46,7 +46,7 @@ class ApiService
 
     public function store(Request $request): JsonResponse
     {
-        if ($request->count) {
+        if ($request->count != null) {
             PeopleData::create([
               'count' => $request->count
             ]);
