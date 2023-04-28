@@ -113,7 +113,8 @@
                 let intervalButtonsElement = $('.home__stats__intervals a')
 
                 getGraphic('1h')
-                intervalButtonsElement.on('click', function () {
+                intervalButtonsElement.on('click', function (event) {
+                    event.preventDefault()
                     getGraphic($(this).attr('data-time'))
                 })
 
