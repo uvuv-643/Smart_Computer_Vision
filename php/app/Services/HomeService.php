@@ -18,6 +18,7 @@ class HomeService
             $timeType = $matches[0];
         }
         $amountOfTime = intval($timeInterval);
+        dd([$timeType, $amountOfTime, $timeInterval])
         if (!empty($timeType) && $amountOfTime > 0) {
             switch ($timeType) {
                 case 'h': {
