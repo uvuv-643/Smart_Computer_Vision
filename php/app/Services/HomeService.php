@@ -60,7 +60,7 @@ class HomeService
             $average = $chunk->avg('count');
             return ['time' => $chunk->pluck('created_at')->last(), 'count' => $average];
         });
-        dd($this->getGraphicData($request->time));
+        dd(Carbon::now()->subHours(1));
         return response()->json($averages);
     }
 
