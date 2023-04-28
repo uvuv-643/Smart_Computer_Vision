@@ -12,9 +12,9 @@
                     <form action="{{ route('home.token.store') }}" method="post">
 
                         @csrf
-                        <div class="mt-4">
+                        <div class="mt-4 mb-4">
                             <x-input-label for="token_name" :value="__('Название токена')" />
-                            <x-text-input id="token_name" class="block mt-1 w-full" placeholder="Введите название токена" type="email" name="token_name" :value="old('token_name')" required autofocus />
+                            <x-text-input id="token_name" class="block mt-1 w-full" placeholder="Введите название токена" type="text" name="token_name" :value="old('token_name')" required autofocus />
                         </div>
 
                         <x-primary-button>
