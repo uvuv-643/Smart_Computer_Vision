@@ -18,12 +18,14 @@ class HomeController extends Controller
 
     public function graphic(HomeService $service): Collection
     {
-        return collect([
-          ['time' => 123, 'count' => 15],
-          ['time' => 124, 'count' => 14],
-          ['time' => 125, 'count' => 16],
-          ['time' => 126, 'count' => 11],
-        ]);
+        $random_data = [];
+        for ($i = 0; $i < 1000; $i++) {
+            $random_data[] = [
+                'time' => mt_rand(1, 1700),
+                'count' => mt_rand(1, 50)
+            ];
+        }
+        return collect($random_data);
     }
 
 }
