@@ -1,33 +1,48 @@
 import base64
 import json
+import threading
+import time
 
 import cv2
 import subprocess
 import requests
-import zmq
 import numpy as np
+import torch
 
-server = 'http://5.101.51.12/php/'
-image = open('image.jpeg', 'rb')
+api_key = '9|pBUN7kDsKKtyFKLrsQWDc01HIuMxSII1NMPz7auo'
+server_store_route = 'https://uvuv643.ru/api/people-data/'
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+headers = {
+    'Accept': 'application/json',
+    'Authorization': f'Bearer {api_key}'
+}
 
-s = requests.Session()
+def count_people_by_frame(_frame):
+    results = model(_frame)
+    actual_count = results.pandas().xyxy[0]
+    return actual_count[actual_count['name'] == 'person'].shape[0]
 
-# open webcam
-# cap = cv2.VideoCapture(0)
+def count_people_and_send_response(frame):
+    people_count = count_people_by_frame(frame)
+    requests.post(server_store_route, headers=headers, data={'count': people_count})
 
-# read image
-# array = np.asarray(bytearray(image.read()), dtype=np.uint8)
-# image = cv2.imdecode(array, cv2.IMREAD_COLOR)
-# cv2.imshow('image', image)
+cap = cv2.VideoCapture(0)
+fps = cap.get(cv2.CAP_PROP_FPS)
+frame_number = 0
 
-response = s.post(server, files={'file': image})
-print(response.content)
+while True:
+    ret, frame = cap.read()
+    frame_number += 1
+    if ret:
+        cv2.imshow('Camera', frame)
+        if frame_number % fps == 0:
+            # Create a new thread for the task of counting people and sending the response
+            t = threading.Thread(target=count_people_and_send_response, args=(frame,))
+            t.start()
 
-# # Loop to capture and encode video frames
-# while True:
-#     ret, frame = cap.read()
-#     if not ret:
-#         break
-#     print(frame.shape)
-#
-# cap.release()
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
