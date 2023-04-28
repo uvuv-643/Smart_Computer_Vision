@@ -48,5 +48,44 @@
     @push('scripts')
         <script src="{{ asset('assets/js/utils.js') }}"></script>
         <script src="{{ asset('assets/js/segments.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            (async function() {
+
+                fetch('{{ route('home.graphic.data') }}')
+                    .then(response => response.json())
+                    .then(response => {
+                        new Chart(
+                            document.getElementById('graphic'),
+                            {
+                                type: 'bar',
+                                data: {
+                                    labels: response.map(row => row.time),
+                                    datasets: [
+                                        {
+                                            data: response.map(row => row.count)
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        tooltips: {
+                                            enabled: false
+                                        }
+                                    }
+                                }
+                            }
+                        );
+                    })
+
+            })();
+        </script>
+
     @endpush
 </x-app-layout>
