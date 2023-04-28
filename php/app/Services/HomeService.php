@@ -55,10 +55,10 @@ class HomeService
     public function getGraphic(Request $request): JsonResponse
     {
         $graphicData = $this->getGraphicData($request->time);
-        $segmentsCount = ceil($graphicData->count() / 200);
+        $segmentsCount = ceil($graphicData->count() / 100);
         $averages = $graphicData->chunk($segmentsCount)->map(function($chunk) {
             $average = $chunk->avg('count');
-            return ['time' => $chunk->pluck('created_at')->last(), 'count' => $average];
+            return ['time' => Carbon::parse($chunk->pluck('created_at')->last())->format('h:i:s'), 'count' => $average];
         });
         return response()->json($averages);
     }

@@ -24,9 +24,10 @@ class HomeController extends Controller
 
     public function test()
     {
-        for ($i = 0; $i < 5000; $i++) {
+        PeopleData::query()->delete();
+        for ($i = 0; $i < 500; $i++) {
             PeopleData::insert([
-              'count' => 50 + mt_rand(30, 50) * sin($i / 10),
+              'count' => 50 + mt_rand(10, 40) * sin($i / 10 + mt_rand(0, 10) / 20),
               'created_at' => Carbon::now()->subMinutes($i),
               'updated_at' => Carbon::now()->subMinutes($i),
             ]);
