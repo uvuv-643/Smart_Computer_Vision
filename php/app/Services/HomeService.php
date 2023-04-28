@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\PeopleData;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -51,12 +52,15 @@ class HomeService
         return view('dashboard', $data);
     }
 
-    public function getGraphic(Request $request): View
+    public function getGraphic(Request $request): JsonResponse
     {
-        $graphicData = $this->getGraphicData('1d');
-        return view('components.graphic', [
-            'history' => $graphicData
-        ]);
+        $graphicData = $this->getGraphicData($request->time);
+        $segmentsCount = ceil($graphicData->count() / 200);
+        $averages = $graphicData->chunk($segmentsCount)->map(function($chunk) {
+            $average = $chunk->avg('count');
+            return ['time' => $chunk->pluck('created_at')->last(), 'count' => $average];
+        });
+        return response()->json($averages);
     }
 
 }
