@@ -74,7 +74,6 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.0/dist/js.cookie.min.js"></script>
 
         <script>
 
@@ -113,7 +112,7 @@
                     {
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'Authorization': 'Bearer ' + Cookies.get('laravel_session'),
+                            'Authorization': 'Bearer ' + {{ auth()->user()->createToken('api-token')->plainTextToken }},
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         }
