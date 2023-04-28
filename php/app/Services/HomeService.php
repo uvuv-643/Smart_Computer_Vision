@@ -60,7 +60,7 @@ class HomeService
             $average = $chunk->avg('count');
             return ['time' => $chunk->pluck('created_at')->last(), 'count' => $average];
         });
-        dd($averages);
+        dd($this->getGraphicData($request->time));
         return response()->json($averages);
     }
 
