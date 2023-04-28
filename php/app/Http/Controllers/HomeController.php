@@ -45,7 +45,12 @@ class HomeController extends Controller
 
     }
 
-    public function token(Request $request): JsonResponse
+    public function create(): View
+    {
+        return view('token');
+    }
+
+    public function store(Request $request): JsonResponse
     {
         $token = $request->user()->createToken($request->token_name);
         return response()->json(['token' => $token->plainTextToken]);
