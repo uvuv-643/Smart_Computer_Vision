@@ -22,6 +22,6 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
 Route::post('/tokens/create', [HomeController::class, 'token'])->middleware(['auth'])->name('home.token.create');
 
-Route::get('/test', [HomeController::class, 'test'])->middleware()->name('test');
+Route::get('/test', [HomeController::class, 'test'])->middleware([])->name('test');
 
 require __DIR__.'/auth.php';
