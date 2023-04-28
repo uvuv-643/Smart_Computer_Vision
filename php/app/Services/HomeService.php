@@ -21,13 +21,13 @@ class HomeService
         if (!empty($timeType) && $amountOfTime > 0) {
             switch ($timeType) {
                 case 'h': {
-                    return PeopleData::where('created_at', '>', Carbon::now()->subHours($amountOfTime))->get();
+                    return PeopleData::orderBy('created_at')->where('created_at', '>', Carbon::now()->subHours($amountOfTime))->get();
                 }
                 case 'd': {
-                    return PeopleData::where('created_at', '>', Carbon::now()->subDays($amountOfTime))->get();
+                    return PeopleData::orderBy('created_at')->where('created_at', '>', Carbon::now()->subDays($amountOfTime))->get();
                 }
                 default: {
-                    return PeopleData::where('created_at', '>', Carbon::now()->subMinutes($amountOfTime))->get();
+                    return PeopleData::orderBy('created_at')->where('created_at', '>', Carbon::now()->subMinutes($amountOfTime))->get();
                 }
             }
         }
