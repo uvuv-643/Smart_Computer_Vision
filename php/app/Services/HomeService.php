@@ -60,7 +60,7 @@ class HomeService
             $average = $chunk->avg('count');
             return ['time' => Carbon::parse($chunk->pluck('created_at')->last())->format('d.m.Y H:i:s'), 'count' => $average];
         });
-        return response()->json($averages->reverse()->values());
+        return response()->json($averages);
     }
 
 }
