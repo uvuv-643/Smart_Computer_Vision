@@ -74,8 +74,11 @@
                         },
                         options: {
                             plugins: {
-                                title: {
+                                legend: {
                                     display: false
+                                },
+                                tooltips: {
+                                    enabled: false
                                 }
                             }
                         }
