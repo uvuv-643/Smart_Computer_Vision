@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('video_name');
-            $table->timestamp('from');
-            $table->timestamp('to');
+            $table->timestamp('from')->useCurrent();
+            $table->timestamp('to')->useCurrent();
             $table->timestamps();
         });
     }
