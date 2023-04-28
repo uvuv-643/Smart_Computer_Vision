@@ -37,16 +37,16 @@ class HomeService
     public function getIndexPage(): View
     {
         $isServiceAvailable = !!PeopleData::orderByDesc('created_at')
-          ->where('created_at', '>', Carbon::now()->subMinutes(1))
+          ->where('created_at', '>', Carbon::now()->subMinutes(3))
           ->first();
         if ($isServiceAvailable) {
             $count = PeopleData::orderByDesc('created_at')
-              ->where('created_at', '>', Carbon::now()->subMinutes(1))
+              ->where('created_at', '>', Carbon::now()->subMinutes(3))
               ->first()
               ->count;
         }
         $data = [
-          'available' => $isServiceAvailable,
+          'isAvailable' => $isServiceAvailable,
           'count' => $count ?? null,
         ];
         return view('dashboard', $data);
