@@ -112,7 +112,7 @@
                     {
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'Authorization': 'Bearer ' + {{ auth()->user()->createToken('api-token')->plainTextToken }},
+                            'Authorization': 'Bearer {{ auth()->user()->createToken('api-token')->plainTextToken }}',
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         }
