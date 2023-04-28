@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('people_data', function (Blueprint $table) {
             $table->id();
             $table->integer('count');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 
