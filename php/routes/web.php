@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/test', [HomeController::class, 'test'])->middleware(['auth', 'verified'])->name('test');
 Route::get('/api/graphic-data', [HomeController::class, 'graphic'])->middleware(['auth', 'verified'])->name('home.graphic.data');
 
 require __DIR__.'/auth.php';

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\PeopleData;
+use App\Services\HomeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Services\HomeService;
-use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
@@ -20,6 +19,13 @@ class HomeController extends Controller
     public function graphic(Request $request, HomeService $service): JsonResponse
     {
         return $service->getGraphic($request);
+    }
+
+    public function test()
+    {
+        PeopleData::create([
+          'count' => 15
+        ]);
     }
 
 }
