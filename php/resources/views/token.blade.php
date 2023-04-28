@@ -11,10 +11,12 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('home.token.store') }}" method="post">
 
-                        <div class="text-green-700">
-                            Ваш токен:
-                            {{ session('token') }}
-                        </div>
+                        @if (session('token'))
+                            <div class="text-green-700">
+                                Ваш токен:
+                                {{ session('token') }}
+                            </div>
+                        @endif
 
                         @csrf
                         <div class="mt-4 mb-4">
