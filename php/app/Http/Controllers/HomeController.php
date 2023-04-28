@@ -28,7 +28,7 @@ class HomeController extends Controller
         for ($i = 0; $i < 500; $i++) {
             $rand = 50 + mt_rand(10, 50) * sin($i / 10 + mt_rand(0, 10) / 20);
             PeopleData::insert([
-              'count' => $rand < 10 ? 0 : $rand,
+              'count' => $rand < 20 ? 0 : $rand,
               'created_at' => Carbon::now()->subMinutes($i),
               'updated_at' => Carbon::now()->subMinutes($i),
             ]);
