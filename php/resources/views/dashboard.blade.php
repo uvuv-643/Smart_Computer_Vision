@@ -71,8 +71,11 @@
 
         <script>
 
+            let currentCanvas
+
             function updateGraphic(data) {
-                new Chart(
+                currentCanvas.destroy()
+                currentCanvas = new Chart(
                     document.getElementById('graphic'),
                     {
                         type: 'bar',
