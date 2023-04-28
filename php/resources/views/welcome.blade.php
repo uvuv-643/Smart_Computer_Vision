@@ -71,6 +71,13 @@
                                     data: data.map(row => row.count)
                                 }
                             ]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: false
+                                }
+                            }
                         }
                     }
                 );
