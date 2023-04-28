@@ -37,56 +37,10 @@
                 @endguest
                 @auth
                     <div>Вы можете продолжать пользоваться приложением.</div>
-                    <div><a href="{{ route('dashboard') }}">В панель управления</a></div>
-
-                    <canvas id="graphic"></canvas>
-
+                    <a href="{{ route('dashboard') }}">В панель управления</a>
                 @endauth
             </div>
         </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <script>
-            (async function() {
-
-                const data = [
-                    { year: 2010, count: 10 },
-                    { year: 2011, count: 20 },
-                    { year: 2012, count: 15 },
-                    { year: 2013, count: 25 },
-                    { year: 2014, count: 22 },
-                    { year: 2015, count: 30 },
-                    { year: 2016, count: 28 },
-                ];
-
-                new Chart(
-                    document.getElementById('graphic'),
-                    {
-                        type: 'bar',
-                        data: {
-                            labels: data.map(row => row.year),
-                            datasets: [
-                                {
-                                    data: data.map(row => row.count)
-                                }
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                legend: {
-                                    display: false
-                                },
-                                tooltips: {
-                                    enabled: false
-                                }
-                            }
-                        }
-                    }
-                );
-            })();
-        </script>
 
     </body>
 </html>
