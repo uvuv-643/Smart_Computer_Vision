@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Services\HomeService;
-use Ramsey\Collection\Collection;
+use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
