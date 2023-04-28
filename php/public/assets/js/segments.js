@@ -1,6 +1,6 @@
 
 (async () => {
-    const videoElement = document.querySelector('video');
+    const videoElement = document.querySelector('.home video');
     const vidClips = [
         'https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f5/STB_Stuttgart_F%C3%B6hrich_U6_Line_Entering_Station_VIDEO.webm/STB_Stuttgart_F%C3%B6hrich_U6_Line_Entering_Station_VIDEO.webm.160p.webm',
         'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/87/Schlossbergbahn.webm/Schlossbergbahn.webm.160p.webm',
@@ -44,13 +44,10 @@
     let clipIndex = 0;
     sourceBuffer.onupdateend = () => {
         if (clipIndex < clipsToAppend.length - 1) {
-            setTimeout(() => {
-                sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
-                clipIndex++;
-                sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
-            }, 5000)
+            sourceBuffer.timestampOffset += clipsToAppend[clipIndex].duration;
+            clipIndex++;
+            sourceBuffer.appendBuffer(clipsToAppend[clipIndex].buff);
         } else {
-            // Done!
             mediaSource.endOfStream();
             videoElement.play();
         }

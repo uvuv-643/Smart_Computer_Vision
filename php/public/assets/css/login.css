@@ -1,0 +1,17 @@
+.login {
+    background: rgb(153,208,255);
+    background: linear-gradient(180deg, rgba(153,208,255,1) 0%, rgba(255,255,255,1) 100%);
+}
+.login__title {
+    font-size: 32px;
+    padding-bottom: 30px;
+    text-align: center;
+    margin-top: 15px;
+}
+.login__button {
+    color: white;
+    background: rgb(153,208,255);
+    padding: 10px 15px;
+    width: 100%;
+    margin-top: 15px;
+}
