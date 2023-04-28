@@ -58,9 +58,9 @@ class HomeService
         $segmentsCount = ceil($graphicData->count() / 100);
         $averages = $graphicData->chunk($segmentsCount)->map(function($chunk) {
             $average = $chunk->avg('count');
-            return ['time' => Carbon::parse($chunk->pluck('created_at')->last())->format('d.m.Y h:i:s'), 'count' => $average];
+            return ['time' => Carbon::parse($chunk->pluck('created_at')->last())->format('d.m.Y H:i:s'), 'count' => $average];
         });
-        return response()->json($averages);
+        return response()->json($averages->reverse());
     }
 
 }
