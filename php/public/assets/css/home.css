@@ -30,6 +30,9 @@
 .home__stats__graphic {
     margin-top: 30px;
 }
+#graphic {
+    min-height: 435px;
+}
 
 .text-green-700 {
     color: green;
