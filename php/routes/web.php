@@ -19,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/test', [HomeController::class, 'test'])->middleware(['auth', 'verified'])->name('test');
-Route::get('/api/graphic-data', [HomeController::class, 'graphic'])->middleware(['auth', 'verified'])->name('home.graphic.data');
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/tokens/create', [HomeController::class, 'create'])->middleware(['auth'])->name('home.token.create');
+Route::post('/tokens/', [HomeController::class, 'store'])->middleware(['auth'])->name('home.token.store');
+
+Route::get('/test', [HomeController::class, 'test'])->middleware([])->name('test');
 
 require __DIR__.'/auth.php';
