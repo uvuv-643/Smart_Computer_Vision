@@ -39,19 +39,20 @@
 
                             </div>
 
-                            <div class="home__stats__intervals">
-                                <a href="#" data-time="7d">3d</a>
-                                <a href="#" data-time="1d">1d</a>
-                                <a href="#" data-time="12h">12h</a>
-                                <a href="#" data-time="4h">4h</a>
-                                <a href="#" data-time="2h">2h</a>
-                                <a href="#" data-time="1h">1h</a>
-                                <a href="#" data-time="30m">30m</a>
-                                <a href="#" data-time="10m">10m</a>
-                            </div>
-
-                            <div class="home__stats__history">
-                                <canvas id="graphic"></canvas>
+                            <div class="home__stats__graphic">
+                                <div class="home__stats__intervals">
+                                    <a href="#" data-time="7d">3d</a>
+                                    <a href="#" data-time="1d">1d</a>
+                                    <a href="#" data-time="12h">12h</a>
+                                    <a href="#" data-time="4h">4h</a>
+                                    <a href="#" data-time="2h">2h</a>
+                                    <a href="#" data-time="1h">1h</a>
+                                    <a href="#" data-time="30m">30m</a>
+                                    <a href="#" data-time="10m">10m</a>
+                                </div>
+                                <div class="home__stats__history">
+                                    <canvas id="graphic"></canvas>
+                                </div>
                             </div>
 
                         </div>
@@ -69,38 +70,55 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script>
-            (async function() {
 
-                fetch('{{ route('home.graphic.data') }}')
-                    .then(response => response.json())
-                    .then(response => {
-                        new Chart(
-                            document.getElementById('graphic'),
-                            {
-                                type: 'bar',
-                                data: {
-                                    labels: response.map(row => row.time),
-                                    datasets: [
-                                        {
-                                            data: response.map(row => row.count)
-                                        }
-                                    ]
+            function updateGraphic(data) {
+                new Chart(
+                    document.getElementById('graphic'),
+                    {
+                        type: 'bar',
+                        data: {
+                            labels: data.map(row => row.time),
+                            datasets: [
+                                {
+                                    data: data.map(row => row.count)
+                                }
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: false
                                 },
-                                options: {
-                                    plugins: {
-                                        legend: {
-                                            display: false
-                                        },
-                                        tooltips: {
-                                            enabled: false
-                                        }
-                                    }
+                                tooltips: {
+                                    enabled: false
                                 }
                             }
-                        );
+                        }
+                    }
+                );
+            }
+
+            function getGraphic(time) {
+
+                fetch('{{ route('home.graphic.data') }}?time=' + time)
+                    .then(response => response.json())
+                    .then(response => {
+                        updateGraphic(response)
                     })
 
-            })();
+            }
+
+            $(document).ready(function () {
+
+                let intervalButtonsElement = $('.home__stats__intervals a')
+
+                getGraphic('1h')
+                intervalButtonsElement.on('click', function () {
+                    getGraphic($(this).attr('data-time'))
+                })
+
+            })
+
         </script>
 
     @endpush
