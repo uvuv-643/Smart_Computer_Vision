@@ -17,7 +17,7 @@ class AddSanctumToken
     {
         $response = $next($request);
         if (auth()->user()) {
-            $response->headers->set('Authorization', 'Bearer ' . auth()->user()->createToken('API Token')->plainTextToken);
+            $response->headers->set('Authorization', 'Bearer ' . auth('sanctum')->user()->createToken('API Token')->plainTextToken);
         }
         return $response;
     }
