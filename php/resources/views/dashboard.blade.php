@@ -107,8 +107,8 @@
             }
 
             function getGraphic(time) {
-
-                fetch('{{ route('home.graphic.data') }}?time=' + time)
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('{{ route('home.graphic.data') }}?time=' + time + "&token=" + csrfToken)
                     .then(response => response.json())
                     .then(response => {
                         updateGraphic(response)
