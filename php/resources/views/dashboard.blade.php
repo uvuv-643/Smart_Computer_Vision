@@ -74,7 +74,6 @@
             let currentCanvas
 
             function updateGraphic(data) {
-                currentCanvas.destroy()
                 currentCanvas = new Chart(
                     document.getElementById('graphic'),
                     {
@@ -118,6 +117,7 @@
                 getGraphic('1h')
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
+                    currentCanvas.destroy()
                     getGraphic($(this).attr('data-time'))
                 })
 
