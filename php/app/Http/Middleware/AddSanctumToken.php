@@ -15,10 +15,7 @@ class AddSanctumToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $response = $next($request);
-        if (auth()->user()) {
-            $response->headers->set('Authorization', 'Bearer ' . auth('sanctum')->user()->createToken('API Token')->plainTextToken);
-        }
-        return $response;
+        $request->headers->set('Authorization', 'Bearer ' . auth('sanctum')->user()->createToken('API Token')->plainTextToken);
+        return $next($request);
     }
 }
