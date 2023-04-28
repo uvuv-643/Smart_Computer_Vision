@@ -19,7 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('graphic-data', [HomeController::class, 'graphic'])->name('home.graphic.data');
+Route::get('graphic-data', [HomeController::class, 'graphic'])->middleware(['auth:sanctum', 'addToken'])->name('home.graphic.data');
+
 
 // define the addToken middleware
 Route::middleware('addToken')->get('/', function () {
