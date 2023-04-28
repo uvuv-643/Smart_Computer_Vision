@@ -21,11 +21,6 @@ class HomeController extends Controller
         return $service->getIndexPage();
     }
 
-    public function graphic(Request $request, HomeService $service): JsonResponse
-    {
-        return $service->getGraphic($request);
-    }
-
     public function test()
     {
 
