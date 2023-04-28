@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function graphic(HomeService $service): Collection
     {
         $random_data = [];
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $random_data[] = [
                 'time' => mt_rand(1, 1700),
                 'count' => mt_rand(1, 50)
