@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use HomeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Services\HomeService;
 
 class HomeController extends Controller
 {
