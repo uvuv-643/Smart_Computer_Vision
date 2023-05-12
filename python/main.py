@@ -37,10 +37,10 @@ def count_people_and_send_response(_frame):
 
 
 def createNewVideo(_cap, _fps):
-    fourcc = 'mp4v'
+    fourcc = 'VP80'
     w = int(_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     h = int(_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    video_name = f"videos/stream_{ datetime.now().strftime('%Y-%m-%d_%H-%M-%S') }.mp4"
+    video_name = f"videos/stream_{ datetime.now().strftime('%Y-%m-%d_%H-%M-%S') }.webm"
     return {
         'video': cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*fourcc), min(_fps, 30), (w, h)),
         'path': video_name
@@ -50,8 +50,8 @@ def createNewVideo(_cap, _fps):
 api_key = '9|pBUN7kDsKKtyFKLrsQWDc01HIuMxSII1NMPz7auo'
 server_stats_store_route = 'https://uvuv643.ru/api/people-data/'
 server_video_store_route = 'https://uvuv643.ru/api/videos/'
-sending_video_interval = 3
-camera_fps_rate = 5
+sending_video_interval = 4
+camera_fps_rate = 120
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model.conf = 0.1  # confidence threshold
 model.iou = 0.2  # NMS IoU threshold
@@ -61,8 +61,8 @@ headers = {
 }
 globalFigures = pd.DataFrame()
 
-# cap = cv2.VideoCapture('cam1.mp4')
-cap = cv2.VideoCapture('event.avi')
+cap = cv2.VideoCapture('cam1.mp4')
+# cap = cv2.VideoCapture('event.avi')
 # cap = cv2.VideoCapture(0)
 
 frame_number = 0
