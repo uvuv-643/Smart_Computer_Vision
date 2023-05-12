@@ -56,7 +56,7 @@ class ApiService
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function storeVideo(Request $request): JsonResponse
     {
         return response()->json(['status' => false], 500);
     }
