@@ -39,7 +39,7 @@ class HomeService
     public function getLastVideo(): JsonResponse
     {
         return response()->json([
-            'url' => 'https://uvuv643.ru/test',
+            'url' => 'https://uvuv643.ru/assets/videos/frag_bunny.mp4',
             'created_at' => Carbon::now()->subMinute()
         ]);
     }
