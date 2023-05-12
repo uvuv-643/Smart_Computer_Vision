@@ -46,7 +46,7 @@
 
     const mediaSource = new MediaSource();
     videoElement.src = URL.createObjectURL(mediaSource);
-    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, `video/mp4; codecs="mp4a.40.2,mp4v.20.8"`, 'segments');
+    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, 'video/mp4; codecs="hev1.1.6.L93.90"', 'segments');
 
     let clipIndex = 0;
     sourceBuffer.onupdateend = () => {
