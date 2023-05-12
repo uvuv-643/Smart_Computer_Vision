@@ -20,4 +20,9 @@ class ApiController extends Controller
         return $service->store($request);
     }
 
+    public function storeVideo(Request $request, ApiService $service) : JsonResponse
+    {
+        return $service->storeVideo($request);
+    }
+
 }

@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('graphic-data', [ApiController::class, 'graphic'])->middleware(['auth:sanctum'])->name('home.graphic.data');
 Route::post('people-data', [ApiController::class, 'store'])->middleware(['auth:sanctum'])->name('home.people.store');
+Route::post('videos', [ApiController::class, 'storeVideo'])->middleware(['auth:sanctum'])->name('home.video.store');
