@@ -44,7 +44,7 @@ class HomeService
     {
         $files = Storage::disk('public')->files('videos');
         usort($files, function($a, $b) {
-            return Storage::disk('public')->lastModified($a) < Storage::disk('public')->lastModified($b);
+            return Storage::disk('public')->lastModified($a) > Storage::disk('public')->lastModified($b);
         });
         $lastFile = end($files);
         dd($lastFile);
