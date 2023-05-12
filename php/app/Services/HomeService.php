@@ -48,8 +48,6 @@ class HomeService
         });
         $lastFile = end($files);
         $dateString = substr($lastFile, strlen("videos/stream_"), strlen("2023-05-12_20-32-11"));
-        $dateString = str_replace("-", " ", $dateString);
-        $dateString = str_replace("_", ":", $dateString);
         $date = Carbon::parse($dateString);
         return response()->json([
             'url' => 'https://uvuv643.ru/storage/' . $lastFile,
