@@ -51,7 +51,7 @@ class HomeService
         $date = Carbon::createFromFormat('Y-m-d_H-i-s', $dateString);
         return response()->json([
             'url' => 'https://uvuv643.ru/storage/' . $lastFile,
-            'created_at' => $date->format('Y-m-d h:i:s')
+            'created_at' => $date->format('Y-m-d H:i:s')
         ]);
     }
 
