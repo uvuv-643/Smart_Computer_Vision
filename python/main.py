@@ -1,24 +1,27 @@
+import os
 import threading
 import time
 import cv2
 import requests
 import torch
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime
+from moviepy.editor import VideoFileClip
+import moviepy.video.fx.all as vfx
 
-import ffmpeg
-import base64
-import json
-import subprocess
-import numpy as np
-import os
-import tqdm
-import yaml
-import PIL
-import psutil
-import torchvision
-import matplotlib as plt
-import seaborn as sns
+# import ffmpeg
+# import base64
+# import json
+# import subprocess
+# import numpy as np
+# import os
+# import tqdm
+# import yaml
+# import PIL
+# import psutil
+# import torchvision
+# import matplotlib as plt
+# import seaborn as sns
 
 
 def peoples_from_frame(_frame):
@@ -36,22 +39,36 @@ def count_people_and_send_response(_frame):
     requests.post(server_stats_store_route, headers=headers, data={'count': people_count})
 
 
-def createNewVideo(_cap, _fps):
+def create_new_video(_cap, _fps):
     fourcc = 'VP80'
-    w = int(_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    h = int(_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    w = 640
+    h = 480
     video_name = f"videos/stream_{ datetime.now().strftime('%Y-%m-%d_%H-%M-%S') }.webm"
     return {
-        'video': cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*fourcc), min(_fps, 30), (w, h)),
+        'video': cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*fourcc), _fps, (w, h)),
         'path': video_name
     }
+
+
+def prepare_video_and_upload(_video_path):
+    global ddd
+    target_path = _video_path.replace('.webm', 'm.webm')
+    target_time = (time.time() - ddd)
+    ddd = time.time()
+    clip = VideoFileClip(_video_path)
+    new_fps = clip.fps * clip.duration / target_time
+    new_clip = clip.fx(vfx.speedx, factor=clip.duration / target_time).set_fps(new_fps)
+    new_clip.write_videofile(target_path, bitrate="10000k")
+    os.remove(_video_path)
+    with open(target_path, 'rb') as f:
+        r = requests.post(server_video_store_route, headers=headers, files={'file': f})
 
 
 api_key = '9|pBUN7kDsKKtyFKLrsQWDc01HIuMxSII1NMPz7auo'
 server_stats_store_route = 'https://uvuv643.ru/api/people-data/'
 server_video_store_route = 'https://uvuv643.ru/api/videos/'
-sending_video_interval = 4
-camera_fps_rate = 120
+sending_video_interval = 10
+camera_fps_rate = 25
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model.conf = 0.1  # confidence threshold
 model.iou = 0.2  # NMS IoU threshold
@@ -61,26 +78,26 @@ headers = {
 }
 globalFigures = pd.DataFrame()
 
-cap = cv2.VideoCapture('cam1.mp4')
 # cap = cv2.VideoCapture('event.avi')
-# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
 frame_number = 0
+ddd = time.time()
 while True:
+    ttt = time.time()
     ret, frame = cap.read()
     if ret:
 
-        # upload video to client server every 15 seconds
+        # upload video to client server every X seconds
         if (frame_number / camera_fps_rate) % sending_video_interval == 0:
             try:
                 video.release()
-                with open(video_path, 'rb') as f:
-                    r = requests.post(server_video_store_route, headers=headers, files={'file': f})
-                    print(r.content)
+                t1 = threading.Thread(target=prepare_video_and_upload, args=(video_path,))
+                t1.start()
             except NameError:
                 pass
 
-            created_video_object = createNewVideo(cap, camera_fps_rate)
+            created_video_object = create_new_video(cap, camera_fps_rate)
             video = created_video_object['video']
             video_path = created_video_object['path']
 
@@ -93,14 +110,10 @@ while True:
             frame = cv2.rectangle(frame, start_point, end_point, color, thickness)
 
         # write current frame to video
-        video.write(frame)
-
-        # show video on screen
-        cv2.imshow('Camera', frame)
-        time.sleep(1 / camera_fps_rate)
+        video.write(cv2.resize(frame, (640, 480)))
 
         # with given interval attempting to count persons and send it to server
-        if frame_number % camera_fps_rate % 10 == 0:
+        if frame_number % camera_fps_rate % (camera_fps_rate // 5) == 0:
             t = threading.Thread(target=count_people_and_send_response, args=(frame,))
             t.start()
 
@@ -109,6 +122,9 @@ while True:
     # if user wants to exit
     if cv2.waitKey(1) == ord('q'):
         break
+
+    if time.time() - ttt <= 1 / camera_fps_rate:
+        time.sleep(1 / camera_fps_rate - (time.time() - ttt))
 
 cap.release()
 cv2.destroyAllWindows()
