@@ -3,12 +3,13 @@
     const videoElement = document.querySelector('.home video');
     const serverCheckUrl = 'https://uvuv643.ru/last-video'
 
-    let lastVideoUpdateTime = '1900-01-01'
+    let lastVideoUpdateTime = new Date(Date.parse('1900-01-01'))
 
     const tryToGetNewVideo = async () => {
         const response = await (await fetch(serverCheckUrl)).json()
         let currentDate = new Date(Date.parse(response.created_at))
         if (currentDate > lastVideoUpdateTime) {
+            console.log()
             return {
                 url: response.url,
                 created_at: currentDate
