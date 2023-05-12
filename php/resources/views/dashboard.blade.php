@@ -82,13 +82,17 @@
 
             function updateGraphic(data) {
                 if (currentCanvas) {
-                    currentCanvas.data = {
-                        labels: data.map(row => row.time),
-                        datasets: [
-                            {
-                                data: data.map(row => row.count)
-                            }
-                        ]
+                    if (JSON.stringify(currentCanvas.data.labels === JSON.stringify(data.map(row => row.time)))) {
+                        currentCanvas.data.datasets[0].data = data.map(row => row.count)
+                    } else {
+                        currentCanvas.data = {
+                            labels: data.map(row => row.time),
+                            datasets: [
+                                {
+                                    data: data.map(row => row.count)
+                                }
+                            ]
+                        }
                     }
                     currentCanvas.update();
                 } else {
@@ -145,14 +149,12 @@
                 getGraphic(lastUsedTime)
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
-                    currentCanvas.destroy()
-                    currentCanvas = undefined
                     getGraphic($(this).attr('data-time'))
                 })
 
                 setInterval(() => {
                     getGraphic(lastUsedTime)
-                }, 5000)
+                }, 10000)
             })
 
         </script>
