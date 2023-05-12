@@ -21,36 +21,29 @@ class HomeController extends Controller
         return $service->getIndexPage();
     }
 
-    public function test()
-    {
-
-        User::create([
-          'name' => 'Artem',
-          'email' => 'artem_zinatulin643@mail.ru',
-          'password' => Hash::make('password'),
-        ]);
-
-        PeopleData::query()->delete();
-//        for ($i = 0; $i < 500; $i++) {
-//            $rand = 50 + mt_rand(10, 50) * sin($i / 10 + mt_rand(0, 10) / 20);
-//            PeopleData::insert([
-//              'count' => $rand < 20 ? 0 : $rand,
-//              'created_at' => Carbon::now()->subMinutes($i),
-//              'updated_at' => Carbon::now()->subMinutes($i),
-//            ]);
-//        }
-
-    }
-
     public function create(): View
     {
         return view('token');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, HomeService $service): RedirectResponse
     {
-        $token = $request->user()->createToken($request->token_name);
-        return redirect()->route('home.token.create')->with(['token' => $token->plainTextToken]);
+        return $service->storeToken($request);
+    }
+
+    public function getLastVideo(HomeService $service): JsonResponse
+    {
+        return $service->getLastVideo();
+    }
+
+    public function test()
+    {
+        User::create([
+            'name' => 'Artem',
+            'email' => 'artem_zinatulin643@mail.ru',
+            'password' => Hash::make('password'),
+        ]);
+        PeopleData::query()->delete();
     }
 
 }
