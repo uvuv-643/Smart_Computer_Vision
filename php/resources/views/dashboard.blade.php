@@ -82,18 +82,8 @@
 
             function updateGraphic(data) {
                 if (currentCanvas) {
-                    if (JSON.stringify(currentCanvas.data.labels === JSON.stringify(data.map(row => row.time)))) {
-                        currentCanvas.data.datasets[0].data = data.map(row => row.count)
-                    } else {
-                        currentCanvas.data = {
-                            labels: data.map(row => row.time),
-                            datasets: [
-                                {
-                                    data: data.map(row => row.count)
-                                }
-                            ]
-                        }
-                    }
+                    currentCanvas.data.datasets[0].data = data.map(row => row.count)
+                    currentCanvas.data.labels = data.map(row => row.time)
                     currentCanvas.update();
                 } else {
                     currentCanvas = new Chart(
