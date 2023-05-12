@@ -68,7 +68,7 @@ api_key = '9|pBUN7kDsKKtyFKLrsQWDc01HIuMxSII1NMPz7auo'
 server_stats_store_route = 'https://uvuv643.ru/api/people-data/'
 server_video_store_route = 'https://uvuv643.ru/api/videos/'
 sending_video_interval = 10
-camera_fps_rate = 25
+camera_fps_rate = 5
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model.conf = 0.1  # confidence threshold
 model.iou = 0.2  # NMS IoU threshold
@@ -125,6 +125,13 @@ while True:
 
     if time.time() - ttt <= 1 / camera_fps_rate:
         time.sleep(1 / camera_fps_rate - (time.time() - ttt))
+
+try:
+    video.release()
+    t1 = threading.Thread(target=prepare_video_and_upload, args=(video_path,))
+    t1.start()
+except NameError:
+    pass
 
 cap.release()
 cv2.destroyAllWindows()
