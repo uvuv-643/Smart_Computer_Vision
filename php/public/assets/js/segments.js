@@ -40,7 +40,7 @@
                     reject()
                 }
                 iterationNumber++
-            }, 1000)
+            }, 4000)
         })
     }
 
