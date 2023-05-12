@@ -78,6 +78,7 @@
         <script>
 
             let currentCanvas
+            let lastUsedTime = '1h'
 
             function updateGraphic(data) {
                 currentCanvas = new Chart(
@@ -107,6 +108,7 @@
             }
 
             function getGraphic(time) {
+                lastUsedTime = time
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 fetch('{{ route('home.graphic.data') }}?time=' + time,
                     {
@@ -128,13 +130,14 @@
 
                 let intervalButtonsElement = $('.home__stats__intervals a')
 
-                getGraphic('1h')
+                getGraphic(lastUsedTime)
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
                     currentCanvas.destroy()
                     getGraphic($(this).attr('data-time'))
                 })
 
+                setInterval(() => getGraphic(lastUsedTime), 5000)
             })
 
         </script>
