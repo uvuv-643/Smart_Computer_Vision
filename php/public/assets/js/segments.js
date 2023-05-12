@@ -46,9 +46,8 @@
 
     const mediaSource = new MediaSource();
     videoElement.src = URL.createObjectURL(mediaSource);
-    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, 'video/mp4; codecs="avc1.42E01E"', 'segments');
+    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, 'video/mp4; codecs="mp4v.20.8"', 'segments');
 
-    let clipIndex = 0;
     sourceBuffer.onupdateend = () => {
         uploadNewVideoToStream().then(result => {
             sourceBuffer.timestampOffset += result.duration;
