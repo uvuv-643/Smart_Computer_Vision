@@ -81,30 +81,42 @@
             let lastUsedTime = '1h'
 
             function updateGraphic(data) {
-                currentCanvas = new Chart(
-                    document.getElementById('graphic'),
-                    {
-                        type: 'bar',
-                        data: {
-                            labels: data.map(row => row.time),
-                            datasets: [
-                                {
-                                    data: data.map(row => row.count)
-                                }
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                legend: {
-                                    display: false
-                                },
-                                tooltips: {
-                                    enabled: false
+                if (currentCanvas) {
+                    currentCanvas.data.datasets[0].data = {
+                        labels: data.map(row => row.time),
+                        datasets: [
+                            {
+                                data: data.map(row => row.count)
+                            }
+                        ]
+                    };
+                    currentCanvas.update();
+                } else {
+                    currentCanvas = new Chart(
+                        document.getElementById('graphic'),
+                        {
+                            type: 'bar',
+                            data: {
+                                labels: data.map(row => row.time),
+                                datasets: [
+                                    {
+                                        data: data.map(row => row.count)
+                                    }
+                                ]
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltips: {
+                                        enabled: false
+                                    }
                                 }
                             }
                         }
-                    }
-                );
+                    );
+                }
             }
 
             function getGraphic(time) {
@@ -133,7 +145,7 @@
                 getGraphic(lastUsedTime)
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
-
+                    currentCanvas.destroy()
                     getGraphic($(this).attr('data-time'))
                 })
 
