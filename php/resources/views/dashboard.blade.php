@@ -137,7 +137,7 @@
                     updatePeopleCount()
                     if (document.getElementById('graphic').matches(':hover')) return;
                     getGraphic(lastUsedTime)
-                }, 1000)
+                }, 8000)
             })
 
         </script>
