@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class ApiService
 {
@@ -58,7 +59,10 @@ class ApiService
 
     public function storeVideo(Request $request): JsonResponse
     {
-        return response()->json(['status' => false], 500);
+        $videoFile = $request->file('file');
+        $filename = $videoFile->getClientOriginalName();
+        $path = $videoFile->storeAs('videos', $filename, 'public');
+        return response()->json(['status' => true, 'path' => $path], 500);
     }
 
 

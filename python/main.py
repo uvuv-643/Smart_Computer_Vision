@@ -50,7 +50,7 @@ def createNewVideo(_cap, _fps):
 api_key = '9|pBUN7kDsKKtyFKLrsQWDc01HIuMxSII1NMPz7auo'
 server_stats_store_route = 'https://uvuv643.ru/api/people-data/'
 server_video_store_route = 'https://uvuv643.ru/api/videos/'
-sending_video_interval = 15
+sending_video_interval = 3
 camera_fps_rate = 5
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model.conf = 0.1  # confidence threshold
@@ -75,8 +75,8 @@ while True:
             try:
                 video.release()
                 with open(video_path, 'rb') as f:
-                    r = requests.post(server_video_store_route, files={'file': f})
-                    print(r.status_code)
+                    r = requests.post(server_video_store_route, headers=headers, files={'file': f})
+                    print(r.content)
             except NameError:
                 pass
 

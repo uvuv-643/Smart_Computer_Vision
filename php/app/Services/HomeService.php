@@ -15,11 +15,11 @@ class HomeService
     public function getIndexPage(): View
     {
         $isServiceAvailable = !!PeopleData::orderByDesc('created_at')
-            ->where('created_at', '>', Carbon::now()->subMinutes(3))
+            ->where('created_at', '>', Carbon::now()->subMinute(1))
             ->first();
         if ($isServiceAvailable) {
             $count = PeopleData::orderByDesc('created_at')
-                ->where('created_at', '>', Carbon::now()->subMinutes(3))
+                ->where('created_at', '>', Carbon::now()->subMinute())
                 ->first()
                 ->count;
         }
