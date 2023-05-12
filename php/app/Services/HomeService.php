@@ -47,10 +47,13 @@ class HomeService
             return Storage::disk('public')->lastModified($a) > Storage::disk('public')->lastModified($b);
         });
         $lastFile = end($files);
-        dd($lastFile);
+        $dateString = substr($lastFile, strlen("videos/stream_"), strlen("2023-05-12_20-32-11"));
+        $dateString = str_replace("-", " ", $dateString);
+        $dateString = str_replace("_", ":", $dateString);
+        $date = Carbon::parse($dateString);
         return response()->json([
-            'url' => 'https://uvuv643.ru/storage/videos/stream_2023-05-12_18-55-30.mp4',
-            'created_at' => Carbon::now()->subMinute()
+            'url' => 'https://uvuv643.ru/storage/' . $lastFile,
+            'created_at' => $date->format('Y-m-d h:i:s')
         ]);
     }
 
