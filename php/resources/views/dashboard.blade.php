@@ -143,6 +143,7 @@
                 })
 
                 setInterval(() => {
+                    if (document.getElementById('graphic').matches(':hover')) return;
                     getGraphic(lastUsedTime)
                 }, 1000)
             })
