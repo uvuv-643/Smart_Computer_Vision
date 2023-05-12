@@ -43,7 +43,7 @@ def create_new_video(_cap, _fps):
     fourcc = 'VP80'
     w = 640
     h = 480
-    video_name = f"videos/stream_{ datetime.now().strftime('%Y-%m-%d_%H:%M:%S') }.webm"
+    video_name = f"videos/stream_{ datetime.now().strftime('%Y-%m-%d_%H-%M-%S') }.webm"
     return {
         'video': cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(*fourcc), _fps, (w, h)),
         'path': video_name
