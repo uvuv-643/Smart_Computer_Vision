@@ -138,6 +138,8 @@
                 getGraphic(lastUsedTime)
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
+                    currentCanvas.destroy()
+                    currentCanvas = undefined
                     getGraphic($(this).attr('data-time'))
                 })
 
