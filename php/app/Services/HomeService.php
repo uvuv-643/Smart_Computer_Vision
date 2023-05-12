@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class HomeService
 {
 
-    public function getIndexPage(): View
+    private function getCountData(): array
     {
         $isServiceAvailable = !!PeopleData::orderByDesc('created_at')
             ->where('created_at', '>', Carbon::now()->subMinute(1))
@@ -23,11 +23,14 @@ class HomeService
                 ->first()
                 ->count;
         }
-        $data = [
+        return [
             'isAvailable' => $isServiceAvailable,
             'count' => $count ?? null,
         ];
-        return view('dashboard', $data);
+    }
+    public function getIndexPage(): View
+    {
+        return view('dashboard', $this->getCountData());
     }
 
     public function storeToken(Request $request): RedirectResponse
@@ -42,6 +45,11 @@ class HomeService
             'url' => 'https://uvuv643.ru/storage/videos/stream_2023-05-12_17-44-35.webm',
             'created_at' => Carbon::now()->subMinute()
         ]);
+    }
+
+    public function getCount(): View
+    {
+        return view('people-count', $this->getCountData());
     }
 
 }

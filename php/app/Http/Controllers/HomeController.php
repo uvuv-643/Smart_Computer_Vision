@@ -46,4 +46,9 @@ class HomeController extends Controller
         PeopleData::query()->delete();
     }
 
+    public function count(HomeService $service): View
+    {
+        return $service->getCount();
+    }
+
 }

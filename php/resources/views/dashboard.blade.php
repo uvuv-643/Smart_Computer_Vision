@@ -18,32 +18,9 @@
                         <div class="home__stats">
                             <div class="home__stats__title">Статистика в режиме реального времени</div>
 
-                            @if ($isAvailable)
-
-                                <div class="home__stats__count">
-                                    На данный момент в аудитории:
-
-                                    @if ($count < 5)
-                                        <span class="text-green-700">{{ $count }}</span>
-                                    @elseif ($count < 15)
-                                        <span class="text-orange-600">{{ $count }}</span>
-                                    @elseif($count < 30)
-                                        <span class="text-orange-700">{{ $count }}</span>
-                                    @else
-                                        <span class="text-red-500">{{ $count }}</span>
-                                    @endif
-
-                                    @if ($count >= 10 && $count <= 20 || $count % 10 <= 1 || $count % 10 >= 5) человек @else человека @endif
-
-                                </div>
-
-                            @else
-
-                                <div class="home__stats__count pb-4">
-                                    На данный момент видеокамера выключена. Невозможно посчитать количество людей в аудитории
-                                </div>
-
-                            @endif
+                            <div id="people-count">
+                                @include('people-count', ['isAvailable' => $isAvailable, 'count' => $count])
+                            </div>
 
                             <div class="home__stats__graphic">
                                 <div class="home__stats__intervals">
@@ -132,6 +109,20 @@
 
             }
 
+            function updatePeopleCount() {
+                let countElement = document.getElementById('people-count')
+                fetch('{{ route('home.stats.count') }}', {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Authorization': 'Bearer {{ auth()->user()->createToken('api-token')->plainTextToken }}',
+                    }
+                })
+                    .then(response => response.text())
+                    .then(response => {
+                        countElement.innerHTML = response
+                    })
+            }
+
             $(document).ready(function () {
 
                 let intervalButtonsElement = $('.home__stats__intervals a')
@@ -143,6 +134,7 @@
                 })
 
                 setInterval(() => {
+                    updatePeopleCount()
                     if (document.getElementById('graphic').matches(':hover')) return;
                     getGraphic(lastUsedTime)
                 }, 1000)
