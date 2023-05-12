@@ -1,7 +1,7 @@
 (async () => {
 
     const videoElement = document.querySelector('.home video');
-    const serverCheckUrl = 'https://uvuv-643.ru/last-video'
+    const serverCheckUrl = 'https://uvuv643.ru/last-video'
 
     let lastVideoUpdateTime = '1900-01-01'
 
