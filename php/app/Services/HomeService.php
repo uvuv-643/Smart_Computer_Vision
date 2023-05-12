@@ -42,7 +42,7 @@ class HomeService
     public function getLastVideo(): JsonResponse
     {
         return response()->json([
-            'url' => 'https://uvuv643.ru/storage/videos/stream_2023-05-12_17-44-35.webm',
+            'url' => 'https://uvuv643.ru/storage/videos/stream_2023-05-12_18-46-42.mp4',
             'created_at' => Carbon::now()->subMinute()
         ]);
     }
