@@ -133,11 +133,14 @@
                 getGraphic(lastUsedTime)
                 intervalButtonsElement.on('click', function (event) {
                     event.preventDefault()
-                    currentCanvas.destroy()
+
                     getGraphic($(this).attr('data-time'))
                 })
 
-                setInterval(() => getGraphic(lastUsedTime), 5000)
+                setInterval(() => {
+                    currentCanvas.destroy()
+                    getGraphic(lastUsedTime)
+                }, 5000)
             })
 
         </script>
