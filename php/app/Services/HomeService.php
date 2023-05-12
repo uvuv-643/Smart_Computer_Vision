@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeService
 {
@@ -41,6 +42,12 @@ class HomeService
 
     public function getLastVideo(): JsonResponse
     {
+        $files = Storage::disk('public')->files('videos');
+        usort($files, function($a, $b) {
+            return Storage::lastModified($a) < Storage::lastModified($b);
+        });
+        $lastFile = end($files);
+        dd($lastFile);
         return response()->json([
             'url' => 'https://uvuv643.ru/storage/videos/stream_2023-05-12_18-55-30.mp4',
             'created_at' => Carbon::now()->subMinute()
