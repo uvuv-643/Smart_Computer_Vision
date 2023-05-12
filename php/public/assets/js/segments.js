@@ -46,7 +46,7 @@
 
     const mediaSource = new MediaSource();
     videoElement.src = URL.createObjectURL(mediaSource);
-    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, 'video/mp4; codecs="avc1.4d401f"', 'segments');
+    const sourceBuffer = await addSourceBufferWhenOpen(mediaSource, 'video/webm; codecs="vp8"', 'segments');
 
     sourceBuffer.onupdateend = () => {
         uploadNewVideoToStream().then(result => {
