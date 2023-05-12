@@ -82,7 +82,14 @@
 
             function updateGraphic(data) {
                 if (currentCanvas) {
-                    currentCanvas.data.datasets[0].data = data.map(row => row.count)
+                    currentCanvas.data = {
+                        labels: data.map(row => row.time),
+                        datasets: [
+                            {
+                                data: data.map(row => row.count)
+                            }
+                        ]
+                    }
                     currentCanvas.update();
                 } else {
                     currentCanvas = new Chart(
