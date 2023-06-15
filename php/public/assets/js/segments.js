@@ -18,29 +18,41 @@
         return null
     }
 
+    let interval = null
+
+    const getVideo = async (resolve, reject, iterationNumber, interval = null) => {
+        let videoData = await tryToGetNewVideo(lastVideoUpdateTime)
+        if (videoData) {
+            if (interval) {
+                clearInterval(interval)
+            }
+            lastVideoUpdateTime = videoData.created_at
+            const blob = await (await fetch(videoData.url)).blob();
+            const duration = await getDuration(blob);
+            const buff = await blob.arrayBuffer();
+            resolve({
+                url: videoData.url,
+                created_at: videoData.created_at,
+                duration,
+                buff
+            })
+        } else {
+            if (iterationNumber > 60) {
+                reject()
+            }
+            iterationNumber++
+        }
+        return iterationNumber
+    }
     const uploadNewVideoToStream = async () => {
+        let iterationNumber = 0
         return new Promise((resolve, reject) => {
-            let iterationNumber = 0
-            const interval = setInterval(async () => {
-                let videoData = await tryToGetNewVideo(lastVideoUpdateTime)
-                if (videoData) {
-                    clearInterval(interval)
-                    lastVideoUpdateTime = videoData.created_at
-                    const blob = await (await fetch(videoData.url)).blob();
-                    const duration = await getDuration(blob);
-                    const buff = await blob.arrayBuffer();
-                    resolve({
-                        url: videoData.url,
-                        created_at: videoData.created_at,
-                        duration,
-                        buff
-                    })
-                }
-                if (iterationNumber > 60) {
-                    reject()
-                }
-                iterationNumber++
+            getVideo(resolve, reject, iterationNumber).then(() => {
+                interval = setInterval(async () => {
+                iterationNumber = await getVideo(resolve, reject, iterationNumber)
             }, 5000)
+            })
+
         })
     }
 
