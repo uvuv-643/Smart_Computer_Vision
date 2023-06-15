@@ -9,7 +9,6 @@
         const response = await (await fetch(serverCheckUrl)).json()
         let currentDate = new Date(Date.parse(response.created_at))
         if (currentDate > lastVideoUpdateTime) {
-            console.log()
             return {
                 url: response.url,
                 created_at: currentDate
@@ -20,7 +19,7 @@
 
     let interval = null
 
-    const getVideo = async (resolve, reject, iterationNumber, interval = null) => {
+    const getVideo = async (resolve, reject, iterationNumber) => {
         let videoData = await tryToGetNewVideo(lastVideoUpdateTime)
         if (videoData) {
             if (interval) {
@@ -44,15 +43,13 @@
         }
         return iterationNumber
     }
+
     const uploadNewVideoToStream = async () => {
         let iterationNumber = 0
         return new Promise((resolve, reject) => {
-            getVideo(resolve, reject, iterationNumber).then(() => {
-                interval = setInterval(async () => {
+            interval = setInterval(async () => {
                 iterationNumber = await getVideo(resolve, reject, iterationNumber)
             }, 5000)
-            })
-
         })
     }
 
@@ -68,6 +65,12 @@
     };
 
     uploadNewVideoToStream().then(result => {
+        sourceBuffer.appendBuffer(result.buff);
+    })
+
+    new Promise((resolve, reject) => {
+        getVideo(resolve, reject, 0)
+    }).then(result => {
         sourceBuffer.appendBuffer(result.buff);
     })
 
