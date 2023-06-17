@@ -59,7 +59,8 @@ def create_new_video(_cap, _fps):
 
 
 def prepare_video_and_upload(_video_path):
-    global last_video_executed_time
+    global last_video_executed_time, current_video_frames
+
     target_path = _video_path.replace('.webm', 'm.webm')
     target_time = (time.time() - last_video_executed_time)
     last_video_executed_time = time.time()
@@ -80,8 +81,8 @@ server_video_store_route = 'https://uvuv643.ru/api/videos/'
 sending_video_interval = 10
 last_sent_stats = -1
 last_executed_count = -1
-camera_fps_rate = 10
-model = torch.hub.load('ultralytics/yolov5', 'yolov5l')
+camera_fps_rate = 15
+model = torch.hub.load('ultralytics/yolov5', 'yolov5m')
 model.conf = 0.2  # confidence threshold
 model.iou = 0.3  # NMS IoU threshold
 headers = {
@@ -89,12 +90,15 @@ headers = {
     'Authorization': f'Bearer {api_key}'
 }
 global_figures = pd.DataFrame()
+current_video_frames = []
 
 # cap = cv2.VideoCapture('event.avi')
+# cap = cv2.VideoCapture('rtsp://admin:@192.168.1.10/1')
 cap = cv2.VideoCapture(0)
 
 frame_number = 0
 last_video_executed_time = time.time()
+
 while True:
     ttt = time.time()
     ret, frame = cap.read()
@@ -122,7 +126,8 @@ while True:
             frame = cv2.rectangle(frame, start_point, end_point, color, thickness)
 
         # write current frame to video
-        video.write(cv2.resize(frame, (640, 480)))
+        video.write()
+        # current_video_frames.append(cv2.resize(frame, (640, 480)))
 
         # with given interval attempting to count persons and send it to server
         if frame_number % camera_fps_rate % (camera_fps_rate // 10) == 0:
